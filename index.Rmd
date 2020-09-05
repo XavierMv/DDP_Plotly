@@ -1,0 +1,29 @@
+---
+title: "Plotly"
+author: "Xavier Magaña Vera"
+date: "9/5/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(plotly)
+```
+
+## Plotly
+
+In this project I will use the Ameshousing library, I will make a plot to know how is the influence of the price depending on the lot area of the property and I will add the neighborhood to each data point.
+
+
+```{r, message=FALSE, warning=FALSE}
+library(dplyr)
+library(readxl)
+library(AmesHousing)
+h <- AmesHousing::make_ames()
+plt <- h %>%
+  plot_ly(x=~Lot_Area, y=~Sale_Price, size =~ Gr_Liv_Area, color =~ Neighborhood, text =~ Neighborhood, hoverinfo = "text", type = 'scatter', mode = 'markers')
+plt <- plt %>%
+  layout(xaxis = list(type="log"))
+plt
+```
+
